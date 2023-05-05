@@ -14,9 +14,17 @@ class Table(db.Model):
     def __repr__(self):
         return '<Table %r>' % self.id
 
-@app.route('/')
-def start_page():
-     return f'main page'
+
+@app.route('/rows')
+def rows():
+    inform = Table.query.order_by(-Table.id).all()
+    return render_template('rows.html', inform=inform)
+
+
+@app.route('/rows/<int:id>')
+def row(id):
+    inform = Table.query.get(id)
+    return render_template('row.html', inform=inform)
 
 @app.route('/create', methods=['POST', 'GET'])
 def create():
@@ -28,9 +36,9 @@ def create():
         try:
             db.session.add(new_inf)
             db.session.commit()
-            return redirect('/')
+            return redirect('/rows')
         except:
-            return "error"
+            return redirect()
     else:
         return render_template('create.html')
 

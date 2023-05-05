@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Information from db
+{% endblock title %}
+
+{% block content %}
+<h1 style="text-align: center;">All information from db</h1>
+{% for inf in inform%}
+<div class="alert alert-info">
+    <h2>{{inf.id}}</h2>
+    <p>{{inf.text_column}}, {{inf.float_column}}</p>
+    <a href="/columns/{{ inf.id }}" class="btn btn-warning">Open</a>
+</div>
+
+{% endfor %}
+
+{% endblock content %}
