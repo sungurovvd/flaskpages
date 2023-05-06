@@ -26,6 +26,7 @@ def row(id):
     inform = Table.query.get(id)
     return render_template('row.html', inform=inform)
 
+
 @app.route('/create', methods=['POST', 'GET'])
 def create():
     if request.method == 'POST':
@@ -42,13 +43,43 @@ def create():
     else:
         return render_template('create.html')
 
+
+@app.route('/rows/<int:id>/delete')
+def delete(id):
+    inform = Table.query.get_or_404(id)
+    try:
+        db.session.delete(inform)
+        db.session.commit()
+        return redirect('/rows')
+    except:
+        return 'Error'
+
+
+@app.route('/rows/<int:id>/update', methods=['POST', 'GET'])
+def update(id):
+    inform = Table.query.get(id)
+    if request.method == 'POST':
+        inform.text_column = request.form['text']
+        inform.float_column = request.form['num']
+
+        try:
+            db.session.commit()
+            return redirect(f'/rows/{id}')
+        except:
+            return 'Error'
+    else:
+        return render_template('update.html', inform=inform)
+
+
 @app.route('/pathwithsml/<string:wrd>/<int:nmbr>')
 def nmbr_and_smbls(wrd,nmbr):
-     return f'path with {wrd} and {nmbr}'
+    return f'path with {wrd} and {nmbr}'
+
+
 
 @app.route('/about')
 def about():
-     return render_template('about.html')
+    return render_template('about.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

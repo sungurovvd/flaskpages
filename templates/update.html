@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Update
+{% endblock title %}
+
+{% block content %}
+<h1 style="text-align: center;">Update {{inform.id}} row</h1>
+<form method="post">
+    <p>text: <input type="text" name="text" id="text" value="{{inform.text_column}}"></p>
+    <p>num: <input type="number" step="0.1" name="num" id="num" value={{inform.float_column}}></p>
+    <input type="submit">
+</form>
+{% endblock content %}
