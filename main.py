@@ -27,7 +27,7 @@ def row(id):
     return render_template('row.html', inform=inform)
 
 
-@app.route('/create', methods=['POST', 'GET'])
+@app.route('/rows/create', methods=['POST', 'GET'])
 def create():
     if request.method == 'POST':
         txt = request.form['text']
@@ -77,7 +77,7 @@ def nmbr_and_smbls(wrd,nmbr):
 
 
 
-@app.route('/about')
+@app.route('/')
 def about():
     return render_template('about.html')
 
